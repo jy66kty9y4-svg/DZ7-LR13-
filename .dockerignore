@@ -4,5 +4,12 @@
 __pycache__
 *.pyc
 .DS_Store
+.env
+*.docx
+*.pdf
+reports/rendered_pages
+reports/*.txt
+reports/*.pdf
+reports/.DS_Store
 screenshots
 db.sqlite3
