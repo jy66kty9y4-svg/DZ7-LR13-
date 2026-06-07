@@ -12,6 +12,7 @@ services:
       - dz7-network
 
   security-app:
+    image: cabinporn/dz7-lr13-security-app:latest
     build: .
     env_file:
       - .env
