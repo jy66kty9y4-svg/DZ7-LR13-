@@ -1,0 +1,152 @@
+{
+  "project": {
+    "variant": "57",
+    "student": "Семенов С. С.",
+    "group": "КП-23-17",
+    "name": "Контейнер безопасности для контроля доступа к виртуальным каналам передачи данных",
+    "implementation": "Python/Django-микросервис security_channel"
+  },
+  "code_metrics": {
+    "product": {
+      "files": [
+        "django_project/__init__.py",
+        "django_project/asgi.py",
+        "django_project/settings.py",
+        "django_project/urls.py",
+        "django_project/wsgi.py",
+        "manage.py",
+        "security_channel/__init__.py",
+        "security_channel/admin.py",
+        "security_channel/apps.py",
+        "security_channel/models.py",
+        "security_channel/services/__init__.py",
+        "security_channel/services/metrics.py",
+        "security_channel/services/security_container.py",
+        "security_channel/urls.py",
+        "security_channel/views.py"
+      ],
+      "physical_lines": 573,
+      "effective_lines": 403,
+      "functions": 15,
+      "classes": 1
+    },
+    "tests": {
+      "files": [
+        "security_channel/tests.py",
+        "tests/conftest.py",
+        "tests/test_economic_calculation.py",
+        "tests/test_security_container.py"
+      ],
+      "physical_lines": 239,
+      "effective_lines": 167,
+      "functions": 20,
+      "classes": 0
+    },
+    "all": {
+      "files": [
+        "django_project/__init__.py",
+        "django_project/asgi.py",
+        "django_project/settings.py",
+        "django_project/urls.py",
+        "django_project/wsgi.py",
+        "manage.py",
+        "security_channel/__init__.py",
+        "security_channel/admin.py",
+        "security_channel/apps.py",
+        "security_channel/models.py",
+        "security_channel/services/__init__.py",
+        "security_channel/services/metrics.py",
+        "security_channel/services/security_container.py",
+        "security_channel/urls.py",
+        "security_channel/views.py",
+        "security_channel/tests.py",
+        "tests/conftest.py",
+        "tests/test_economic_calculation.py",
+        "tests/test_security_container.py"
+      ],
+      "physical_lines": 812,
+      "effective_lines": 570,
+      "functions": 35,
+      "classes": 1
+    }
+  },
+  "coefficients": {
+    "accepted_avc": 19,
+    "hours_per_person_month": 160,
+    "RELY": 1.15,
+    "RCPX": 1.33,
+    "RUSE": 1.0,
+    "PDIF": 1.0,
+    "PREX": 1.0,
+    "FCIL": 0.87,
+    "SCED": 1.0
+  },
+  "work_hours": {
+    "additional_testing_hours": 35,
+    "security_review_hours": 30,
+    "documentation_hours": 25,
+    "management_hours": 20,
+    "additional_hours": 110
+  },
+  "costs": {
+    "personnel": [
+      {
+        "role": "Программист Python / Django",
+        "work": "Доработка Django-приложения, сервисной логики и автоматизации расчета",
+        "hours": 137,
+        "rate": 3000,
+        "cost": 411000
+      },
+      {
+        "role": "Специалист по информационной безопасности",
+        "work": "Проверка логики ACCESS_KEY, блокировок, обработки ошибок и метрик",
+        "hours": 30,
+        "rate": 4000,
+        "cost": 120000
+      },
+      {
+        "role": "Тестировщик",
+        "work": "pytest, проверка CSV/JSON, сценарии ALLOW/BLOCK и воспроизводимость",
+        "hours": 35,
+        "rate": 2500,
+        "cost": 87500
+      },
+      {
+        "role": "Технический писатель",
+        "work": "Отчет, таблицы, расчеты, выводы и оформление ЛР13",
+        "hours": 25,
+        "rate": 2000,
+        "cost": 50000
+      },
+      {
+        "role": "Аналитик / руководитель проекта",
+        "work": "Декомпозиция работ, календарный план, контроль расчетов и план найма",
+        "hours": 20,
+        "rate": 3500,
+        "cost": 70000
+      }
+    ],
+    "platform_cost": 11000,
+    "maintenance_cost": 40000,
+    "training_cost": 44000
+  },
+  "results": {
+    "physical_lines": 573,
+    "effective_lines": 403,
+    "functions": 15,
+    "classes": 1,
+    "test_physical_lines": 239,
+    "test_functions": 20,
+    "physical_avc": 38.2,
+    "effective_avc": 26.866666666666667,
+    "accepted_avc": 19,
+    "loc": 285,
+    "kdsi": 0.285,
+    "multiplier_m": 1.3306649999999998,
+    "person_months": 0.8548050489058104,
+    "development_hours": 137,
+    "total_hours": 247,
+    "personnel_cost": 738500,
+    "total_cost": 833500
+  }
+}

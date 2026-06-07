@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Нужен для корректного отображения страницы на разных размерах экрана -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Данные клиентов</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #1f2933;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Навигационные вкладки между страницами компонента */
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: #1f2933;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab:hover {
+            background-color: #e9eef3;
+        }
+
+        .tab.active {
+            background-color: #1f2933;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .header,
+        .section {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 0;
+            line-height: 1.5;
+            color: #52616b;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 22px;
+        }
+
+        .records-count {
+            margin-bottom: 16px;
+            color: #52616b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #e9eef3;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #d0d7de;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #d0d7de;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Выделение условного токена ACCESS_KEY */
+        .token-placeholder {
+            color: #0f5c9e;
+            font-weight: bold;
+        }
+
+        .edit-link {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: #1f2933;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .edit-link:hover {
+            background-color: #374151;
+        }
+
+        .empty-message {
+            padding: 16px;
+            background-color: #fff4e5;
+            border: 1px solid #ffd699;
+            border-radius: 8px;
+            color: #7a4b00;
+        }
+
+        @media (max-width: 800px) {
+            .page {
+                padding: 16px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page">
+
+        <!-- Навигация между основной страницей и страницей исходных данных -->
+        <nav class="tabs">
+            <a class="tab" href="{% url 'security_channel_index' %}">
+                Результаты контейнера
+            </a>
+
+            <a class="tab active" href="{% url 'security_channel_clients' %}">
+                Данные клиентов
+            </a>
+
+            <a class="tab" href="{% url 'quality_metrics_view' %}">
+                Метрики приложения
+            </a>
+
+            <a class="tab" href="http://127.0.0.1:3000/d/security-channel-quality/kachestvo-kontejnera-bezopasnosti" target="_blank">
+                Панель качества
+            </a>
+        </nav>
+
+        <header class="header">
+            <h1>Данные клиентов, проходящих через контейнер</h1>
+
+            <!--
+                На этой странице отображаются исходные записи из clients.json.
+                Они еще не обработаны контейнером безопасности.
+            -->
+            <p>
+                Раздел отображает клиентские записи из файла <strong>clients.json</strong>.
+                Эти данные используются как входной набор для проверки токена клиента,
+                формирования статуса доступа и построения диаграмм на основной странице.
+            </p>
+        </header>
+
+        <section class="section">
+            <h2>Исходные клиентские записи</h2>
+
+            <p class="records-count">
+                Количество записей: <strong>{{ clients_count }}</strong>
+            </p>
+
+            <!--
+                indexed_clients передается из views.py.
+                В нем каждая запись содержит:
+                row.index — порядковый номер клиента в JSON-файле;
+                row.client — данные конкретного клиента.
+                Индекс нужен для перехода на страницу редактирования конкретной записи.
+            -->
+            {% if indexed_clients %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID клиента</th>
+                            <th>IP-адрес</th>
+                            <th>Канал</th>
+                            <th>Токен</th>
+                            <th>Запросы</th>
+                            <th>Объем данных</th>
+                            <th>Временная метка</th>
+                            <th>Действие</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for row in indexed_clients %}
+                            <tr>
+                                <td>{{ row.client.client_id }}</td>
+                                <td>{{ row.client.ip }}</td>
+                                <td>{{ row.client.channel }}</td>
+
+                                <!--
+                                    ACCESS_KEY в clients.json используется как условное обозначение.
+                                    Реальное значение берется контейнером из Replit Secrets.
+                                -->
+                                {% if row.client.token == "ACCESS_KEY" %}
+                                    <td class="token-placeholder">{{ row.client.token }}</td>
+                                {% else %}
+                                    <td>{{ row.client.token }}</td>
+                                {% endif %}
+
+                                <td>{{ row.client.requests }}</td>
+                                <td>{{ row.client.payload }}</td>
+                                <td>{{ row.client.timestamp }}</td>
+
+                                <td>
+                                    <a
+                                        class="edit-link"
+                                        href="{% url 'security_channel_edit_client' row.index %}"
+                                    >
+                                        Изменить
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty-message">
+                    Клиентские записи не найдены или файл clients.json пуст.
+                </div>
+            {% endif %}
+        </section>
+
+    </main>
+</body>
+</html>

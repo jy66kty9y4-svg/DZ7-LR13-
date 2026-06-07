@@ -1,0 +1,137 @@
+[
+  {
+    "client_id": "C001",
+    "ip": "192.168.1.10",
+    "channel": "API",
+    "token": "BADKEY",
+    "requests": 3,
+    "payload": 120,
+    "timestamp": 1713043200
+  },
+  {
+    "client_id": "C002",
+    "ip": "192.168.1.11",
+    "channel": "WEB",
+    "token": "BADKEY",
+    "requests": 7,
+    "payload": 450,
+    "timestamp": 1713046800
+  },
+  {
+    "client_id": "C003",
+    "ip": "192.168.1.12",
+    "channel": "MOBILE",
+    "token": "BADKEY",
+    "requests": 2,
+    "payload": 80,
+    "timestamp": 1713050400
+  },
+  {
+    "client_id": "C004",
+    "ip": "192.168.1.13",
+    "channel": "API",
+    "token": "WRONG",
+    "requests": 10,
+    "payload": 600,
+    "timestamp": 1713054000
+  },
+  {
+    "client_id": "C005",
+    "ip": "192.168.1.14",
+    "channel": "WEB",
+    "token": "ACCESS_KEY",
+    "requests": 5,
+    "payload": 300,
+    "timestamp": 1713057600
+  },
+  {
+    "client_id": "C006",
+    "ip": "192.168.1.15",
+    "channel": "MOBILE",
+    "token": "BAD_KEY",
+    "requests": 8,
+    "payload": 500,
+    "timestamp": 1713061200
+  },
+  {
+    "client_id": "C007",
+    "ip": "192.168.1.16",
+    "channel": "API",
+    "token": "ACCESS_KEY",
+    "requests": 1,
+    "payload": 50,
+    "timestamp": 1713064800
+  },
+  {
+    "client_id": "C008",
+    "ip": "192.168.1.17",
+    "channel": "WEB",
+    "token": "ACCESS_KEY",
+    "requests": 6,
+    "payload": 350,
+    "timestamp": 1713068400
+  },
+  {
+    "client_id": "C009",
+    "ip": "192.168.1.18",
+    "channel": "MOBILE",
+    "token": "WRONG",
+    "requests": 4,
+    "payload": 200,
+    "timestamp": 1713072000
+  },
+  {
+    "client_id": "C010",
+    "ip": "192.168.1.19",
+    "channel": "API",
+    "token": "ACCESS_KEY",
+    "requests": 9,
+    "payload": 700,
+    "timestamp": 1713075600
+  },
+  {
+    "client_id": "C011",
+    "ip": "192.168.1.20",
+    "channel": "WEB",
+    "token": "BAD_KEY",
+    "requests": 2,
+    "payload": 100,
+    "timestamp": 1713079200
+  },
+  {
+    "client_id": "C012",
+    "ip": "192.168.1.21",
+    "channel": "MOBILE",
+    "token": "ACCESS_KEY",
+    "requests": 3,
+    "payload": 150,
+    "timestamp": 1713082800
+  },
+  {
+    "client_id": "C013",
+    "ip": "192.168.1.22",
+    "channel": "API",
+    "token": "WRONG",
+    "requests": 12,
+    "payload": 800,
+    "timestamp": 1713086400
+  },
+  {
+    "client_id": "C014",
+    "ip": "192.168.1.23",
+    "channel": "WEB",
+    "token": "ACCESS_KEY",
+    "requests": 4,
+    "payload": 220,
+    "timestamp": 1713090000
+  },
+  {
+    "client_id": "C015",
+    "ip": "192.168.1.24",
+    "channel": "MOBILE",
+    "token": "BAD_KEY",
+    "requests": 6,
+    "payload": 400,
+    "timestamp": 1713093600
+  }
+]

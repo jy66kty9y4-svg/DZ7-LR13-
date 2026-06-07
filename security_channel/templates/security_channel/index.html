@@ -1,0 +1,397 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Адаптивное отображение страницы на разных экранах -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Контейнер безопасности</title>
+
+    <style>
+        /* Общие настройки страницы */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #1f2933;
+        }
+
+        /* Основной контейнер страницы */
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Навигационные вкладки */
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: #1f2933;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab:hover {
+            background-color: #e9eef3;
+        }
+
+        .tab.active {
+            background-color: #1f2933;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* Верхний информационный блок */
+        .header {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 0;
+            line-height: 1.5;
+            color: #52616b;
+        }
+
+        /* Карточки со сводной статистикой */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .summary-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #52616b;
+            font-weight: normal;
+        }
+
+        .summary-card strong {
+            font-size: 30px;
+        }
+
+        /* Кнопка обновления результатов */
+        .refresh-block {
+            margin-bottom: 24px;
+        }
+
+        .refresh-button {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background-color: #1f2933;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .refresh-button:hover {
+            background-color: #374151;
+        }
+
+        /* Общий блок раздела */
+        .section {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 22px;
+        }
+
+        /* Таблица с результатами обработки клиентов */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #e9eef3;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #d0d7de;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #d0d7de;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Визуальное выделение статусов */
+        .status-allow {
+            color: #0f7b0f;
+            font-weight: bold;
+        }
+
+        .status-block {
+            color: #b42318;
+            font-weight: bold;
+        }
+
+        /* Блоки с диаграммами */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .chart-card {
+            border: 1px solid #d0d7de;
+            border-radius: 10px;
+            padding: 16px;
+            background-color: #fbfcfd;
+        }
+
+        .chart-card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .chart-card img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            background-color: #ffffff;
+        }
+
+        /* Сообщение на случай, если данных нет */
+        .empty-message {
+            padding: 16px;
+            background-color: #fff4e5;
+            border: 1px solid #ffd699;
+            border-radius: 8px;
+            color: #7a4b00;
+        }
+
+        /* Адаптация для узких экранов */
+        @media (max-width: 800px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .page {
+                padding: 16px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page">
+
+        <!-- Навигация между страницей результатов и страницей исходных данных -->
+        <nav class="tabs">
+            <a class="tab active" href="{% url 'security_channel_index' %}">
+                Результаты контейнера
+            </a>
+
+            <a class="tab" href="{% url 'security_channel_clients' %}">
+                Данные клиентов
+            </a>
+
+            <a class="tab" href="{% url 'quality_metrics_view' %}">
+                Метрики приложения
+            </a>
+
+            <a class="tab" href="http://127.0.0.1:3000/d/security-channel-quality/kachestvo-kontejnera-bezopasnosti" target="_blank">
+                Панель качества
+            </a>
+        </nav>
+
+        <header class="header">
+            <h1>Контейнер безопасности для контроля доступа к виртуальным каналам</h1>
+
+            <!-- Краткое описание страницы для пользователя -->
+            <p>
+                На странице отображаются результаты обработки клиентских записей контейнером безопасности.
+                Контейнер проверяет токен клиента, формирует статус доступа и выводит итоговые данные
+                в табличной и графической форме.
+            </p>
+        </header>
+
+        <!--
+            Django передает сюда переменные:
+            total_count — общее количество обработанных клиентов;
+            allow_count — количество разрешенных подключений;
+            block_count — количество заблокированных подключений.
+        -->
+        <section class="summary-grid">
+            <div class="summary-card">
+                <h3>Всего клиентов</h3>
+                <strong>{{ total_count }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <h3>Разрешено</h3>
+                <strong class="status-allow">{{ allow_count }}</strong>
+            </div>
+
+            <div class="summary-card">
+                <h3>Заблокировано</h3>
+                <strong class="status-block">{{ block_count }}</strong>
+            </div>
+        </section>
+
+        <!--
+            Кнопка повторного запуска обработки контейнера.
+            При нажатии страница перезагружается, views.py заново читает clients.json,
+            вызывает security_container и обновляет таблицу с диаграммами.
+        -->
+        <div class="refresh-block">
+            <a class="refresh-button" href="{% url 'security_channel_index' %}">
+                Обновить результаты
+            </a>
+        </div>
+
+        <section class="section">
+            <h2>Данные клиентов после обработки контейнером</h2>
+
+            <!--
+                Если список results не пустой, выводится таблица.
+                Если данных нет, выводится предупреждение.
+            -->
+            {% if results %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID клиента</th>
+                            <th>IP-адрес</th>
+                            <th>Канал</th>
+                            <th>Запросы</th>
+                            <th>Объем данных</th>
+                            <th>Статус</th>
+                            <th>Причина</th>
+                            <th>Время</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!--
+                            Цикл перебирает результаты, которые были сформированы функцией security_container.
+                            Каждый item — это одна обработанная клиентская запись.
+                        -->
+                        {% for item in results %}
+                            <tr>
+                                <td>{{ item.client_id }}</td>
+                                <td>{{ item.ip }}</td>
+                                <td>{{ item.channel }}</td>
+                                <td>{{ item.requests }}</td>
+                                <td>{{ item.payload }}</td>
+
+                                <!--
+                                    Статус ALLOW подсвечивается зеленым,
+                                    статус BLOCK — красным.
+                                -->
+                                {% if item.status == "ALLOW" %}
+                                    <td class="status-allow">{{ item.status }}</td>
+                                {% else %}
+                                    <td class="status-block">{{ item.status }}</td>
+                                {% endif %}
+
+                                <td>{{ item.reason }}</td>
+                                <td>{{ item.timestamp }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty-message">
+                    Данные клиентов не найдены или контейнер не сформировал результаты обработки.
+                </div>
+            {% endif %}
+        </section>
+
+        <section class="section">
+            <h2>Диаграммы контейнера</h2>
+
+            <!--
+                Диаграммы создаются кодом контейнера как PNG-файлы.
+                HTML-страница только отображает уже созданные изображения из static-папки.
+            -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Распределение решений контейнера</h3>
+                    <img
+                        src="{% static security_chart_url %}"
+                        alt="Распределение решений контейнера"
+                    >
+                </div>
+
+                <div class="chart-card">
+                    <h3>Количество запросов клиентов по времени</h3>
+                    <img
+                        src="{% static requests_chart_url %}"
+                        alt="Количество запросов клиентов по времени"
+                    >
+                </div>
+
+                <div class="chart-card">
+                    <h3>Суммарная нагрузка по виртуальным каналам</h3>
+                    <img
+                        src="{% static channel_chart_url %}"
+                        alt="Суммарная нагрузка по виртуальным каналам"
+                    >
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

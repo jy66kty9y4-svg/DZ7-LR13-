@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Метрики контейнера безопасности</title>
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #f4f6f8;
+            color: #111827;
+            font-family: Arial, sans-serif;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: #1f2933;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab:hover {
+            background-color: #e9eef3;
+        }
+
+        .tab.active {
+            background-color: #1f2933;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .section {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h1 {
+            margin: 0 0 16px;
+            font-size: 28px;
+        }
+
+        .section p {
+            margin: 0 0 16px;
+            line-height: 1.5;
+            color: #52616b;
+        }
+
+        .links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: #1f2933;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .button-link.secondary {
+            background-color: #e9eef3;
+            color: #1f2933;
+        }
+
+        pre {
+            margin: 0;
+            padding: 18px;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            border: 1px solid #d0d7de;
+            font-family: Menlo, Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.45;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 800px) {
+            .page {
+                padding: 16px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page">
+        <nav class="tabs">
+            <a class="tab" href="{% url 'security_channel_index' %}">
+                Результаты контейнера
+            </a>
+
+            <a class="tab" href="{% url 'security_channel_clients' %}">
+                Данные клиентов
+            </a>
+
+            <a class="tab active" href="{% url 'quality_metrics_view' %}">
+                Метрики приложения
+            </a>
+
+            <a class="tab" href="http://127.0.0.1:3000/d/security-channel-quality/kachestvo-kontejnera-bezopasnosti" target="_blank">
+                Панель качества
+            </a>
+        </nav>
+
+        <section class="section">
+            <h1>Метрики контейнера безопасности</h1>
+
+            <p>
+                На этой странице показано содержимое реального endpoint <strong>/metrics/</strong>,
+                который отдает Django-контейнер. Именно эти строки Prometheus собирает из контейнера
+                <strong>security-app:8000</strong> и передает в Grafana для построения панели качества.
+            </p>
+
+            <div class="links">
+                <a class="button-link" href="{% url 'quality_metrics' %}">
+                    Открыть raw /metrics/
+                </a>
+
+                <a class="button-link secondary" href="http://127.0.0.1:9090/targets" target="_blank">
+                    Проверить цель в Prometheus
+                </a>
+            </div>
+
+            <pre>{{ metrics_text }}</pre>
+        </section>
+    </main>
+</body>
+</html>
